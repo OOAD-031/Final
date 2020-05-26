@@ -1,0 +1,37 @@
+@startuml SignUp
+skinparam state {
+  StartColor #394856
+  EndColor #394856
+  BackgroundColor #d1eaf5
+  BackgroundColor<<Warning>> #394856
+  BorderColor #87acbe
+  FontName Impact
+}
+[*]->Input
+Input:waitting for instruction /inputInformation
+Input-->System:SentInformation
+state System{
+  [*]-left->CheckPassword
+  CheckPassword:CheckPasswordAndConfirmPassword
+  CheckPassword-->Input:PasswordIncorrect
+  CheckPassword-left->Process:confirmed
+  Process:processing
+}
+System-->Database:Processed
+ state Database{
+     [*]->CheckKeyCode
+     CheckKeyCode:CheckPasswordHardware
+     CheckKeyCode->CheckUserName:keycodeiscorrect
+     CheckKeyCode->Input:KeycordIncorrect
+     CheckUserName:CheckUsername
+     CheckUserName-up->Input:UserNameIncorrect
+     CheckUserName->SaveInformation:usernameiscorrect
+     SaveInformation:SaveUsernameAndPassword
+ }
+ Database-left->[*]
+
+ 
+    
+
+
+@enduml

@@ -1,0 +1,88 @@
+@startuml
+
+skinparam class {
+BackgroundColor #fbf1d5
+ArrowColor #fe9f60
+BorderColor #fe9f60
+}
+skinparam stereotypeCBackgroundColor #daddc5
+
+skinparam ClassAttributeIconSize 0
+class SmartLock{
+    #SignIn
+    -UserHome
+    #SignUp
+    #SignIn()
+    #SignUp()
+}
+class SignIn{
+    -Username
+    -Password
+    -Login()
+    }
+class SignUp{
+    #HWSignup
+    -UserSignup
+    -SignUp()
+}
+class HWSignup{
+    #KeyCode
+    #HWUsername
+    #HWPassword
+    #HWRegister()
+}
+class UserSignup{
+    #KeyCode
+    -Username
+    -Password
+    -ConfirmPassword
+    -UserRegister()
+}
+class UserHome{
+    -Username
+    -Door
+    -SingOut
+    -ChangPassword
+    -LogOut()
+    -TellUsername()
+    -SelectDoor()
+}
+class Door{
+    #Control
+    #nameDoor
+    #Report
+    #TellState()
+    #Control()
+}
+class Control{
+    #Switch
+    -NodeMUC
+    #Status
+    -Cloud
+    #Control()
+    #TellState()
+}
+class Report{
+    #Day
+    #Time
+    #State
+    #User
+    #Report()
+}
+class ChangPassword{
+    -Username
+    -OldPassword
+    -NewPassword
+    -ComfirmPassword
+    -ChangPassword()
+}
+SmartLock "1" *-- "1..n" SignIn 
+SmartLock "1" *-- "1..n" SignUp
+SmartLock "1" *-- "1" UserHome
+SignUp "1" *-- "1" UserSignup
+SignUp "1" *-- "1" HWSignup
+UserHome "1" *-- "1..n" Door
+UserHome "1" *-- "1" ChangPassword
+Door "1" *-- "1" Control
+Door "1" *-- "1" Report
+@enduml

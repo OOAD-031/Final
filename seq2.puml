@@ -1,0 +1,35 @@
+@startuml Control
+
+skinparam sequence {
+ArrowColor #60763b
+LifeLineBorderColor #60763b
+ParticipantBorderColor #a5b59c
+ParticipantBackgroundColor #daddc5
+ParticipantFontName Impact
+}
+alt lock
+User -> UI : กด lock
+UI -> System : ส่ง lockDoor
+System -> Cloud : เช็คสถานะประตู
+alt DoorOpen
+Cloud -> System : ประตูเปิดอยู่
+System->System: Error
+System -> UI : MessageDoorOpen
+else DoorClose
+Cloud->System : ประตูปิดอยู่
+System->System : LockDoor
+System->Hardware: LockDoor
+System -> UI : MessageLockSuccess
+end
+UI->User:ShowMessage
+else Unlock
+User -> UI : กด Unlock
+UI -> System : ส่ง UnlockDoor
+System -> Cloud : ส่ง Unlock เปลี่ยนสถานะ
+System -> Hardware : ให้ทำการ DoorUnlock
+Cloud -> System :  Unlock แล้ว
+System -> UI : ResultMesage
+UI -> User : Unlock
+end
+
+@enduml

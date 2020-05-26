@@ -1,0 +1,19 @@
+@startuml Report
+skinparam state {
+  StartColor LightCoral
+  EndColor LightCoral
+  BackgroundColor #fef4e1
+  BackgroundColor<<Warning>> LightPink
+  BorderColor #ffe4e3
+  FontName Impact
+}
+[*]->Ready
+Ready:Waiting for instruction/selecting function
+Ready-down->Process: getInstruction
+Process:ProcessinSystem
+Process-->getState: processed
+getState:RequestReport/gettingState
+getState->Show:getState
+Show:ShowHistoryReport
+Show->[*]
+@enduml

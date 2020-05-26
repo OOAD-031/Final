@@ -1,0 +1,31 @@
+@startuml ChangePass
+
+
+skinparam sequence {
+ArrowColor #9979c1
+LifeLineBorderColor #9979c1
+ParticipantBorderColor #c4b3c3
+ParticipantBackgroundColor #efe5ee
+ParticipantFontName Impact
+}
+User -> UI : input
+UI -> System : old password, new password and comfirm password
+System -> System : Check Password
+alt incorrect
+System -> UI:ErrorMessage
+UI->User:ShowMessage
+else Correct
+System -> Database : old password and new password 
+alt correct
+Database->Database :old password is correct and set new password
+Database->System:Set new password
+else incorrect
+Database->Database :old password is incorrect 
+Database->System:Invalid password
+end
+System->UI:Message
+UI->User:ShowMessage
+
+end
+
+@enduml
